@@ -60,7 +60,7 @@ public class ExtentCucumberAdapter
     private static ThreadLocal<ExtentTest> scenarioOutlineThreadLocal = new InheritableThreadLocal<>();
     private static ThreadLocal<ExtentTest> scenarioThreadLocal = new InheritableThreadLocal<>();
     private static ThreadLocal<Boolean> isHookThreadLocal = new InheritableThreadLocal<>();
-    private static ThreadLocal<ExtentTest> stepTestThreadLocal = new InheritableThreadLocal<>();
+    protected static ThreadLocal<ExtentTest> stepTestThreadLocal = new InheritableThreadLocal<>();
     
     private String screenshotDir;
     private String screenshotRelPath;
@@ -181,7 +181,7 @@ public class ExtentCucumberAdapter
         updateResult(event.result);
     }
     
-    private synchronized void updateResult(Result result) {
+    protected synchronized void updateResult(Result result) {
         switch (result.getStatus().lowerCaseName()) {
             case "failed":
                 stepTestThreadLocal.get().fail(result.getError());
